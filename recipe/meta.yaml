@@ -7,23 +7,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/py-readability-metrics-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/py-readability-metrics-{{ version }}.tar.gz
   sha256: 465b7ffa1063f2448bf791dac50f9117d8c2bf06d931bbb0955606e14c4b3ddc
   patches:
     - 0001-Windows-install-fix.patch
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.4
+    - python {{ python_min }}
   run:
     - nltk
-    - python >=3.4
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -33,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/cdimascio/py-readability-metrics
